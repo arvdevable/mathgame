@@ -1,0 +1,151 @@
+/* regulars */
+@font-face {
+    font-family: 'Tgyhr';
+    src: url(fonts/texgyreheros-regular.otf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tgyhr';
+    src: url(fonts/texgyreheros-italic.otf);
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Tgyhr';
+    src: url(fonts/texgyreheros-bolditalic.otf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Tgyhr';
+    src: url(fonts/texgyreheros-bold.otf);
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* condensed */
+@font-face {
+    font-family: 'Tgyhrcn';
+    src: url(fonts/texgyreheroscn-regular.otf);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tgyhrcn';
+    src: url(fonts/texgyreheroscn-italic.otf);
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Tgyhrcn';
+    src: url(fonts/texgyreheroscn-bolditalic.otf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Tgyhrcn';
+    src: url(fonts/texgyreheroscn-bold.otf);
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* define vars */
+
+:root {
+    --defbg: #111111;
+    --defcol: #ffffff;
+}
+
+html body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Tgyhr', sans-serif;
+        
+    background-color: var(--defbg);
+    color: var(--defcol);
+}
+
+main {
+
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body {
+    text-align: center;
+}
+
+#count {
+    color: #ffffff;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #228ff4;
+    color: #ffffff;
+
+    border-radius: 4px;
+}
+
+input {
+    background-color: #111111;
+    border: none;
+}
+
+#score {
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+/* userinp */
+#userInput {
+    background-color: #111111;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding: 8px; 
+    font-size: 14px;
+    outline: none;
+    width: 150px;
+    margin-right: 8px;
+}
+
+button {
+    background-color: #111111; 
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 4px;
+    padding: 8px 12px; /* Compact padding */
+    font-size: 14px; /* Small font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #333333; /* Slightly lighter background on hover */
+    color: #ffffff; /* Ensure text remains white */
+}
+
+button:active {
+    background-color: #555555; /* Even lighter background when clicked */
+}
+
+footer {
+    position: fixed;
+    font-family: 'Tgyhr';
+    bottom: 0;
+    left: 0;
+    margin: 10px;
+    font-size: 10px;
+    text-align: left;
+}

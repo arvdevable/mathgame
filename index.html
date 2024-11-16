@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Math Shitty Game</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+<body>
+    <main>
+    <h1>Count the Thing.</h1>
+    <p id="desc">Count the thing, if you guess right, you should be able to continue</p>
+    <div id="game">
+        <p id="count"></p>
+        <input type="number" id="userInput" placeholder="Enter your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <p><span id="score">0</span> | <span id="timer">15</span>s</p>
+
+        <p id="feedback"></p>
+        <p></p>
+    </div>
+</main>
+    <script>
+        // Generate random numbers
+        function mathOne() {
+            return Math.floor(Math.random() * 100);
+        }
+
+        function mathTwo() {
+            return Math.floor(Math.random() * 1000);
+        }
+
+        var resultOne = mathOne();
+        var resultTwo = mathTwo();
+        var correctAnswer = resultOne + resultTwo;
+        var score = 0;
+        var timeLeft = 15;
+        var timerInterval;
+        var feedbackElement = document.getElementById("feedback");
+
+        // Display the random numbers
+        document.getElementById("count").innerHTML = resultOne + " + " + resultTwo;
+
+        // Function to set a cookie
+function setCookie(name, value, days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+
+// Function to get a cookie
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var cookieArray = decodedCookie.split(';');
+    for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i];
+        while (cookie.charAt(0) == ' ') {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(nameEQ) == 0) {
+            return cookie.substring(nameEQ.length, cookie.length);
+        }
+    }
+    return null;
+}
+
+function updateScore(value) {
+    score += value; // Update the score
+    var scoreElement = document.getElementById("score");
+    scoreElement.textContent = score;
+    
+    // Change the color of the score based on its value
+    if (score < 0) {
+        scoreElement.style.backgroundColor = "#A85248"; // Set the score color to red if it's negative
+    } else {
+        scoreElement.style.backgroundColor = "#228ff4"; // Set the score color to green if it's zero or positive
+    }
+    
+    // Save the updated score in a cookie (expires in 7 days)
+    setCookie("score", score, 7);
+}
+
+
+function loadScore() {
+    var savedScore = getCookie("score");
+    if (savedScore) {
+        score = parseInt(savedScore, 10);
+        document.getElementById("score").textContent = score;
+    } else {
+        score = 0; // If no score is saved, start from 0
+    }
+}
+
+// Call `loadScore()` when the game initializes
+loadScore();
+
+
+function checkAnswer() {
+    var userAnswer = parseInt(document.getElementById("userInput").value, 10);
+    
+    if (userAnswer === correctAnswer) {
+        feedbackElement.innerHTML = "Correct! Well done!";
+        feedbackElement.style.color = "green";
+        updateScore(10); // Add 10 points for a correct answer
+        generateNewQuestion();
+    } else {
+        feedbackElement.innerHTML = "Incorrect. Try again!";
+        feedbackElement.style.color = "red";
+        updateScore(-5); // Subtract 5 points for an incorrect answer
+    }
+}
+
+
+
+        // Start the timer
+        function startTimer() {
+            clearInterval(timerInterval); // Clear any previous interval
+            timeLeft = 15;
+            document.getElementById("timer").textContent = timeLeft;
+            
+            timerInterval = setInterval(function() {
+                timeLeft--;
+                document.getElementById("timer").textContent = timeLeft;
+                if (timeLeft == 0) {
+                    clearInterval(timerInterval);
+                    feedbackElement.innerHTML = "Time's up! Next question.";
+                    feedbackElement.style.color = "orange";
+                    score -= 10;
+                    document.getElementById("score").textContent = score;
+                    generateNewQuestion();
+                }
+            }, 1000);
+        }
+
+        // Function to generate new question
+        function generateNewQuestion() {
+            resultOne = mathOne();
+            resultTwo = mathTwo();
+            correctAnswer = resultOne + resultTwo;
+            document.getElementById("count").innerHTML = resultOne + " + " + resultTwo;
+            document.getElementById("userInput").value = ""; // Clear input
+            startTimer(); // Restart the timer
+        }
+
+        // Initialize the game
+        startTimer();
+    </script>
+
+    <footer>
+        <p>&copy; morphedstill; all rights reserved | ver. 0.1.1</p>
+    </footer>
+</body>    
+</html>
